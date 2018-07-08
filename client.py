@@ -3,7 +3,34 @@ import select
 
 
 # function section
-def reliable_send(message):
+def reliable_send(message, ip):
+    global received
+    received = 2  # 0 just send    1 receive ok   2 time out/send
+    callSend = 1
+    fragment = 0
+    if len(message) > 6500:
+        callSend = int(len(message) / 6500) + 1
+        fragment = 1  # 1 moreFragment    0 o.w
+    for x in range(0, callSend):
+        start = x * 6500
+        end = (x + 1) * 6500
+        if x == callSend:
+            fragment = 0
+        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(ip)+"*"+make_parity(message)
+        print("send packet : " + FragmentedMESSAGE)
+        if reliable_send_fragmented(FragmentedMESSAGE):
+            print("send succsecfully packet : " + str(x))
+            print("\n")
+            x += 1
+            received = 2
+        else:
+            print("can not send packet number : " + str(x))
+            # parity  ip/port/split dns
+            return False
+    return True
+
+
+def reliable_send_fragmented(message):
     counter = 0
     global received
     while counter < 15:
@@ -30,12 +57,22 @@ def parity(message):
     return True
 
 
+def make_parity(message):
+    parity = 0
+    p = 0
+    for i in message:
+        p += ord(i)
+    parity = bin(p)
+    parity = parity.split('b')
+    return parity[1]
+
+
 def send_http(message):
     global received
-    print("send packet")
-    print("UDP target IP:", UDP_IP_s)
-    print("UDP target port:", UDP_PORT_s)
-    print("message:", message)
+    # print("send packet")
+    # print("UDP target IP:", UDP_IP_s)
+    # print("UDP target port:", UDP_PORT_s)
+    # print("message:", message)
     sock_send.sendto(bytes(message, "utf-8"), (UDP_IP_s, UDP_PORT_s))
     received = 0
 
@@ -46,7 +83,7 @@ def receive_http():
     ready = select.select([sock_receive], [], [], 1)
     if ready[0]:
         receive_data, addr = sock_receive.recvfrom(1024)  # buffer size is 1024 bytes
-        print("client receive message ")
+        # print("client receive message ")
         received = 1
         assert isinstance(receive_data, object)
         show_result(receive_data)
@@ -76,24 +113,11 @@ sock_receive.setblocking(0)
 
 # code section
 received = 2  # 0 just send    1 receive ok   2 time out/send
-MESSAGE = "GET / HTTP/1.0\r\n\r\n"
-if len(MESSAGE) > 3:
-    callSend = int(len(MESSAGE) / 3) + 1
-    fragment = 1  # 1 moreFragment    0 o.w
-for x in range(0, callSend):
-    start = x * 3
-    end = (x + 1) * 3
-    if x == callSend:
-        fragment = 0
-    FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end]
-    print(FragmentedMESSAGE)
-    if reliable_send(FragmentedMESSAGE):
-        print("send succsecfully packet : " + str(x))
-        x += 1
-        received = 2
-    else:
-        print("can not send packet number : " + str(x))
-        # parity  ip/port/split dns
+# MESSAGE = "GET / HTTP/1.0\r\n\r\n"
+DES_IP = input("enter destionation IP : ")
+MESSAGE = input("enter your http message : ")
+reliable_send(MESSAGE, DES_IP)
 
-# dns type setting numberOfPacke * moreFragment * message * IPDestination * portDestination
+# parity  ip/port/split dns
 
+# dns type setting numberOfPacke * moreFragment * message * IPDestination * parity
