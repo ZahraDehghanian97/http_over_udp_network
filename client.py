@@ -37,7 +37,7 @@ def show_result_dns(message):
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
 TCP_Target = 'aut.ac.ir'
-DNS_type = 'Aname'
+DNS_type = 'A' #CNAME
 BUFFER_SIZE = 1024
 MESSAGE = "Hello, World!"
 
