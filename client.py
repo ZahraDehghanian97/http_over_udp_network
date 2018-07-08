@@ -14,9 +14,10 @@ def reliable_send(message, ip):
     for x in range(0, callSend):
         start = x * 6500
         end = (x + 1) * 6500
-        if x == callSend:
+        print(callSend)
+        if x == callSend-1:
             fragment = 0
-        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(ip) + "*" + make_parity(message)
+        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(ip) + "*" + make_parity(MESSAGE[start: end])
         print("send packet : " + FragmentedMESSAGE)
         if reliable_send_fragmented(FragmentedMESSAGE):
             print("send succsecfully packet : " + str(x))
@@ -79,7 +80,7 @@ def send_http(message):
     # print("UDP target IP:", UDP_IP_s)
     # print("UDP target port:", UDP_PORT_s)
     # print("message:", message)
-    sock_send.sendto(bytes(message, "utf-8"), (UDP_IP_s, UDP_PORT_s))
+    sock_send.sendto(bytes(message, "utf-8"), (UDP_IP_s_proxy, UDP_PORT_s_proxy))
     received = 0
 
 
@@ -112,15 +113,15 @@ def show_result(message):
 
 
 # send part initiation
-UDP_IP_s = "127.0.0.1"  # "185.211.88.22"
-UDP_PORT_s = 5005
+UDP_IP_s_proxy = "127.0.0.1"  # "185.211.88.22"
+UDP_PORT_s_proxy = 5005
 sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
 # receive part initiation
-UDP_IP_r = "127.0.0.1"  # "185.211.88.22"
-UDP_PORT_r = 5006
+UDP_IP_r_proxy = "127.0.0.1"  # "185.211.88.22"
+UDP_PORT_r_proxy = 5006
 sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-sock_receive.bind((UDP_IP_r, UDP_PORT_r))
+sock_receive.bind((UDP_IP_r_proxy, UDP_PORT_r_proxy))
 sock_receive.setblocking(0)
 
 # code section
@@ -132,4 +133,4 @@ reliable_send(MESSAGE, DES_IP)
 
 # parity  ip/port/split dns
 
-# dns type setting numberOfPacke * moreFragment * message * IPDestination * parity
+# http type setting numberOfPacke * moreFragment * message * IPDestination * parity
