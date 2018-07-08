@@ -16,7 +16,7 @@ def reliable_send(message, ip):
         end = (x + 1) * 6500
         if x == callSend:
             fragment = 0
-        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(ip)+"*"+make_parity(message)
+        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(ip) + "*" + make_parity(message)
         print("send packet : " + FragmentedMESSAGE)
         if reliable_send_fragmented(FragmentedMESSAGE):
             print("send succsecfully packet : " + str(x))
@@ -37,12 +37,8 @@ def reliable_send_fragmented(message):
         if received == 0:
             result = receive_http()
         if received == 1:
-            if parity(message):
-                counter = 15
-
-                return True
-            else:
-                received = 2
+            counter = 15
+            return True
         if received == 2:
             send_http(message)
             counter += 1
@@ -52,9 +48,19 @@ def reliable_send_fragmented(message):
         return False
 
 
-def parity(message):
-    # must be implement
-    return True
+def check_parity(message):
+    # m[2] data - m[4] parity
+    temp = str(message)
+    m = temp[2:-1].split('*')
+    p = 0
+    for i in m[2]:
+        p += ord(i)
+    parity = bin(p)
+    parity = parity.split('b')
+    if m[4] == parity[1]:
+        return True
+    else:
+        return False
 
 
 def make_parity(message):
@@ -84,10 +90,16 @@ def receive_http():
     if ready[0]:
         receive_data, addr = sock_receive.recvfrom(1024)  # buffer size is 1024 bytes
         # print("client receive message ")
-        received = 1
-        assert isinstance(receive_data, object)
-        show_result(receive_data)
-        return receive_data
+        if check_parity(receive_data):
+            received = 1
+            assert isinstance(receive_data, object)
+            show_result(receive_data)
+            return receive_data
+        else:
+            received = 2
+            print("parity error")
+            return 0
+
     else:
         received = 2
         print("time out ")
