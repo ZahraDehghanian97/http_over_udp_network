@@ -14,6 +14,7 @@ def reliable_send(message):
             if parity(message):
                 counter = 15
                 show_result(result)
+                return True
             else:
                 received = 2
         if received == 2:
@@ -22,6 +23,7 @@ def reliable_send(message):
 
     if counter == 15 and received == 2:
         print("proxy is not ready to answer")
+        return False
 
 
 def parity(message):
@@ -74,3 +76,14 @@ sock_receive.setblocking(0)
 # code section
 received = 0  # 0 just send    1 receive ok   2 time out
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
+if len(MESSAGE) > 6500 :
+    callSend = len(MESSAGE)/6500 + 1
+    fragment = 1 ; # 1 moreFragment    0 o.w
+for x in range (0,callSend):
+    start = x*6500
+    end = (x+1)*6500
+    if x==callSend :
+        fragment = 0 ;
+    FragmentedMESSAGE = str(fragment)+'*'+ MESSAGE[start,end]
+    reliable_send(FragmentedMESSAGE)
+# parity fragment ip/port/split dns

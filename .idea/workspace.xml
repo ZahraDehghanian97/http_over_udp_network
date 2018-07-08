@@ -2,67 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71064edf-4531-4f0a-b308-36f9f87ee517" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build/built-jar.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build/classes/.netbeans_automatic_build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build/classes/.netbeans_update_resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build/classes/clienttoolapplicationhttp/ClientToolApplicationHTTP$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build/classes/clienttoolapplicationhttp/ClientToolApplicationHTTP.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/build/classes/clienttoolapplicationhttp/UDPSender.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/dist/ClientToolApplicationHTTP.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/dist/README.TXT" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/manifest.mf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/build-impl.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/genfiles.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/private/config.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/private/private.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/private/private.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/nbproject/project.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/output.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/src/clienttoolapplicationhttp/ClientToolApplicationHTTP.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolApplicationHTTP/ClientToolApplicationHTTP/src/clienttoolapplicationhttp/UDPSender.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/build/classes/.netbeans_automatic_build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/build/classes/.netbeans_update_resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/build/classes/clienttooldns/ClientToolDNS$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/build/classes/clienttooldns/ClientToolDNS.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/build/classes/clienttooldns/UDPSender.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/manifest.mf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/nbproject/build-impl.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/nbproject/genfiles.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/nbproject/private/private.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/nbproject/private/private.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/nbproject/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/nbproject/project.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/src/clienttooldns/ClientToolDNS.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/ClientToolDNS/src/clienttooldns/UDPSender.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/built-jar.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/.netbeans_automatic_build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/.netbeans_update_resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/proxy/DNSResolver.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/proxy/HTTPGET.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/proxy/HTTPGETANSWER.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/proxy/Proxy$ResolveAnswer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/proxy/Proxy.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/build/classes/proxy/ResolveAnswer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/dist/Proxy.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/dist/README.TXT" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/dist/lib/dnsjava-2.1.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/manifest.mf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/build-impl.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/genfiles.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/private/config.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/private/private.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/private/private.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/nbproject/project.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/src/proxy/DNSResolver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/src/proxy/HTTPGET.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/src/proxy/HTTPGETANSWER.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/src/proxy/Proxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Project/Proxy/src/proxy/ResolveAnswer.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client.py" afterPath="$PROJECT_DIR$/client.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -75,8 +14,8 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/project$client.coverage" NAME="client Coverage Results" MODIFIED="1530690157212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/project$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1530689348309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project_java$client.coverage" NAME="client Coverage Results" MODIFIED="1530781242002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project_java$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1530781164026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project_java$client.coverage" NAME="client Coverage Results" MODIFIED="1530962580527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project_java$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1530962576859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -87,8 +26,8 @@
       <file leaf-file-name="client.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="26" column="12" lean-forward="true" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+            <state relative-caret-position="-145">
+              <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -453,7 +392,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1796875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -515,8 +454,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="26" column="12" lean-forward="true" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+        <state relative-caret-position="-145">
+          <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
