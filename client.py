@@ -1,47 +1,45 @@
 import socket
-import select
 
 
 # function section
 
 
-def send_dns(message):
-    global received
+def send_dns():
     print("send packet")
     print("DNS target IP:", TCP_IP)
     print("DNS target port:", TCP_PORT)
     print("DNS target name:", TCP_Target)
-    print("message:", message)
-    newmsg = bytes(DNS_type + "*" + TCP_IP + "*" + TCP_Target + "*" + MESSAGE, 'utf-8')
+    # print("message:", message)
+    newmsg = bytes(DNS_type + "*" + TCP_IP + "*" + TCP_Target, 'utf-8')
     s.connect((TCP_IP, TCP_PORT))
     s.send(newmsg)
 
 
 def receive_dns():
-    global received
     print("client waiting for answer ...")
 
-    data = s.recv(BUFFER_SIZE)
+    data = str(s.recv(BUFFER_SIZE))
     s.close()
-    show_result_dns(data)
+    rcv_data = data[2:-1].split('*')
+    print("recieved packet")
+    print("DNS query type IP:", rcv_data[0])
+    print("DNS query target names:", rcv_data[2])
+    print("DNS query tareget Ips:", rcv_data[3])
+    # show_result_dns(rcv_data)
 
 
 def show_result_dns(message):
     print("received message:", message)
 
 
-
-
-
-
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
 TCP_Target = 'aut.ac.ir'
-DNS_type = 'A' #CNAME
+DNS_type = 'A'  # CNAME
 BUFFER_SIZE = 1024
-MESSAGE = "Hello, World!"
+# MESSAGE = "Hello, World!"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-send_dns(MESSAGE)
+send_dns()
 
 receive_dns()
