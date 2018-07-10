@@ -15,9 +15,10 @@ def reliable_send(message, ip):
         start = x * 6500
         end = (x + 1) * 6500
         print(callSend)
-        if x == callSend-1:
+        if x == callSend - 1:
             fragment = 0
-        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(ip) + "*" + make_parity(MESSAGE[start: end])
+        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(
+            ip) + "*" + make_parity(MESSAGE[start: end])
         print("send packet : " + FragmentedMESSAGE)
         if reliable_send_fragmented(FragmentedMESSAGE):
             print("send succsecfully packet : " + str(x))
@@ -65,9 +66,13 @@ def check_parity(message):
 
 
 def make_parity(message):
+    print(message)
+    m = bytes(message, "utf-8")
+    message = str(m)
+    print(message)
     parity = 0
     p = 0
-    for i in message:
+    for i in message[2:-1]:
         p += ord(i)
     parity = bin(p)
     parity = parity.split('b')
@@ -127,8 +132,10 @@ sock_receive.setblocking(0)
 # code section
 received = 2  # 0 just send    1 receive ok   2 time out/send
 # MESSAGE = "GET / HTTP/1.0\r\n\r\n"
-DES_IP = input("enter destionation IP : ")
-MESSAGE = input("enter your http message : ")
+#DES_IP = input("enter destionation IP : ")
+#MESSAGE = input("enter your http message : ")
+DES_IP = "www.aut.ac.ir"
+MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 reliable_send(MESSAGE, DES_IP)
 
 # parity  ip/port/split dns
