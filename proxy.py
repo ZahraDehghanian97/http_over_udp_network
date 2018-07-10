@@ -22,12 +22,12 @@ def receive_http_client():
 
 
 def receive_http_fragmented():
-    sock_r = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-    sock_r.bind((UDP_IP_r_client, UDP_PORT_r_client))
+    sock_c = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    sock_c.bind((UDP_IP_r_client, UDP_PORT_r_client))
     print("proxy is waiting for packet ...")
     notReceive = True
     while notReceive:
-        data, addr = sock_r.recvfrom(1024)  # buffer size is 1024 bytes
+        data, addr = sock_c.recvfrom(1024)  # buffer size is 1024 bytes
         print("receive packet")
         assert isinstance(data, object)
         print("received message:", data)
@@ -40,17 +40,18 @@ def receive_http_fragmented():
         return m
     else:
         return -1
-    sock_r.close()
+    sock_c.close()
 
 
 def send_http_client(data):
-    sock_s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-    print("UDP target IP:", UDP_IP_s_client)
-    print("UDP target port:", UDP_PORT_s_client)
-    print("message:", data)
-    print("\n")
-    sock_s.sendto(data, (UDP_IP_s_client, UDP_PORT_s_client))
-    sock_s.close()
+    sock_c = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    # print("UDP target IP:", UDP_IP_s_client)
+    # print("UDP target port:", UDP_PORT_s_client)
+    # print("message:", data)
+    # print("\n")
+    message = "http*" + data
+    sock_c.sendto(bytes(message, 'utf-8'), (UDP_IP_s_client, UDP_PORT_s_client))
+    sock_c.close()
 
 
 def check_parity(message):
@@ -73,15 +74,13 @@ def check_parity(message):
 
 def send_http_server(message):
     global sock_s
-    print(TCP_IP_s_server,TCP_port_s_server)
-    assert isinstance(sock_s, object)
+    print("send request to : ", TCP_IP_s_server, " on port : ", TCP_port_s_server)
+    sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket.getaddrinfo('127.0.0.1', 8080)
     sock_s.connect((TCP_IP_s_server, TCP_port_s_server))
-    print(message, "and GET / HTTP/1.0\\\r\\\n\\\r\\\n")
     if message == "GET / HTTP/1.0\\r\\n\\r\\n":
-        print("send in if")
         sock_s.send(bytes("GET / HTTP/1.0\r\n\r\n", 'utf-8'))
     else:
-        print("send in else")
         sock_s.send(bytes(message, 'utf-8'))
 
 
@@ -93,7 +92,7 @@ def receive_http_server():
 
 
 def send_and_receive_http_server(message):
-    global TCP_IP_s_server,sock_s
+    global TCP_IP_s_server, sock_s
     print("i am here")
     send_http_server(message)
     ans = receive_http_server()
@@ -102,14 +101,18 @@ def send_and_receive_http_server(message):
     temp = temp.split('\'')
     answer = temp[1].split(' ')
     type = answer[1]
+    print(type)
     if type == "200":
         print("200 receive answer with no problem ")
         return ans
 
-    if type == "404":
+    elif type == "404":
         print("404 not found")
         return ans
-    if type == "301" or type == "302":
+    elif type == "403":
+        print("403 forbidden")
+        return ans
+    elif type == "301" or type == "302":
         print("301/302 move temporarily")
         for i in answer:
             if 'Location:' in i:
@@ -118,10 +121,22 @@ def send_and_receive_http_server(message):
                 new_location = new_location.split('//')
                 new_location = new_location[1].split('\\')
                 TCP_IP_s_server = new_location[0]
-                print(TCP_IP_s_server)
-                sock_s.close()
-                sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                send_and_receive_http_server(message)
+                make_ready_ip(TCP_IP_s_server, message)
+
+
+def make_ready_ip(ip, message):
+    global TCP_IP_s_server
+    temp = ip.split('/')
+    TCP_IP_s_server = temp[0]
+    s = ""
+    for i in range(1, len(temp)):
+        s += '/' + temp[i]
+    if message == "GET / HTTP/1.0\\r\\n\\r\\n":
+        m = "GET " + s + " HTTP/1.0\r\n\r\n"
+    else:
+        m = message
+    print(m)
+    send_and_receive_http_server(m)
 
 
 TCP_port_s_server = 80
@@ -134,11 +149,10 @@ BUFFER_SIZE = 2048
 
 while 1:
     sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket.getaddrinfo('127.0.0.1', 8080)
     message = receive_http_client()
-    print("now we send message to server in main  ", message)
+    print("now we send your request to server ")
     data = send_and_receive_http_server(message)
-    # send_http_server(message)
-    # data = receive_http_server()
     send_http_client(data)
     # sock_s.close()
 
