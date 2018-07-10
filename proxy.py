@@ -1,5 +1,5 @@
 import socket
-
+import dns.resolver
 
 def receive_dns_client():
     global msg
@@ -28,7 +28,9 @@ def receive_dns_client():
 
 
 def send_dns_server_udp(dns_query):
-
+    ip_addr =""
+    myResolver = dns.resolver.Resolver()  # create a new instance named 'myResolver'
+    myResolver.timeout = 0.01
     if dns_query[0] == "A":
         if "www" in dns_query[2]:
             dns_query[2] = dns_query[2][3:].split("www")
@@ -36,9 +38,16 @@ def send_dns_server_udp(dns_query):
         ip_addr = socket.gethostbyname(dns_query[2])
         print(ip_addr)  # print IP address
     elif dns_query[0] == "CNAME":
-         ip_addr= socket.gethostbyname_ex(dns_query[2])
+        answers = myResolver.query(dns_query[2], 'CNAME')
+        print(' query qname:', answers.qname, ' num ans.', len(answers))
+        for rdata in answers:
+            ip_addr = str(ip_addr + str(rdata.target) + "@")
+           # print(' cname target address:', rdata.target + "@")
+
+        # info= socket.gethostbyname_ex(dns_query[2])
+        # ip_addr = info[2]
     send_data = send_dns_client_tcp(ip_addr)
-    print(send_data)  # print IP address
+    print(send_data)
     return send_data
 
 

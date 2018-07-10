@@ -21,11 +21,13 @@ def receive_dns():
     data = str(s.recv(BUFFER_SIZE))
     s.close()
     rcv_data = data[2:-1].split('*')
+    target_ips = rcv_data[3]
+    target_ips = target_ips.split('.@')
     print("recieved packet")
     print("DNS query type IP:", rcv_data[0])
     print("DNS query target names:", rcv_data[2])
-    print("DNS query tareget Ips:", rcv_data[3])
-    # show_result_dns(rcv_data)
+    print("DNS query tareget Ips:", target_ips)
+    show_result_dns(rcv_data)
 
 
 def show_result_dns(message):
@@ -34,7 +36,7 @@ def show_result_dns(message):
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
-TCP_Target = 'aut.ac.ir'
+TCP_Target = 'mail.google.com'
 DNS_type = 'A'  # CNAME
 BUFFER_SIZE = 1024
 # MESSAGE = "Hello, World!"
