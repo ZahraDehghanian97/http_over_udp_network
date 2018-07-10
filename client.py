@@ -1,10 +1,14 @@
 import socket
 import select
 
-
 # function section
+
+
 def reliable_send(message, ip):
-    global received
+    global received, sock_send, sock_receive
+    sock_receive.bind((UDP_IP_r_proxy, UDP_PORT_r_proxy))
+    sock_receive.setblocking(0)
+    sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     received = 2  # 0 just send    1 receive ok   2 time out/send
     callSend = 1
     fragment = 0
@@ -29,6 +33,8 @@ def reliable_send(message, ip):
             print("can not send packet number : " + str(x))
             # parity  ip/port/split dns
             return False
+    sock_send.close()
+    sock_receive.close()
     return True
 
 
@@ -117,6 +123,62 @@ def show_result(message):
     print("received message:", message)
 
 
+def receive_http_proxy():
+    global TCP_IP_s_server, sock_receive, sock_send
+    sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    sock_receive.bind((UDP_IP_r_proxy, UDP_PORT_r_proxy))
+    sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    hope = 1
+    temp = receive_http_fragmented()
+    if temp != str(-1):
+        # print(temp)
+        TCP_IP_s_server = str(temp[3])
+        myMessage = str(temp[2])
+        while temp[1] == str(1):
+            temp = receive_http_fragmented()
+            if temp[0] == str(hope):
+                myMessage += temp[2]
+                hope += 1
+        print("defragment finish")
+        return myMessage
+    else:
+        print("parity error , remove the packet from buffer...")
+    sock_receive.close()
+    sock_send.close()
+
+
+def receive_http_fragmented():
+    print("client is waiting for response packet ...")
+    notReceive = True
+    while notReceive:
+        data, addr = sock_receive.recvfrom(6500)  # buffer size is 6500 bytes
+        print("receive packet")
+        assert isinstance(data, object)
+        print("received message:", data)
+        notReceive = False
+
+    if check_parity(data):
+        print(data)
+        temp = str(data)
+        m = temp[2:-1].split('*')
+        send_ack_http_proxy(data)
+        return m
+    else:
+        return -1
+
+
+def send_ack_http_proxy(data):
+    print("send ack to proxy")
+    global sock_send
+    sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    print("UDP target IP:", UDP_IP_s_proxy)
+    print("UDP target port:", UDP_PORT_s_proxy)
+    print("message:", data)
+    print("\n")
+    sock_send.sendto(data, (UDP_IP_s_proxy, UDP_PORT_s_proxy))
+    sock_send.close()
+
+
 # send part initiation
 UDP_IP_s_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_s_proxy = 5005
@@ -126,18 +188,19 @@ sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 UDP_IP_r_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_r_proxy = 5006
 sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-sock_receive.bind((UDP_IP_r_proxy, UDP_PORT_r_proxy))
-sock_receive.setblocking(0)
 
+TCP_IP_s_server = ""
 # code section
 received = 2  # 0 just send    1 receive ok   2 time out/send
 # MESSAGE = "GET / HTTP/1.0\r\n\r\n"
-#DES_IP = input("enter destionation IP : ")
-#MESSAGE = input("enter your http message : ")
+# DES_IP = input("enter destionation IP : ")
+# MESSAGE = input("enter your http message : ")
 DES_IP = "www.aut.ac.ir"
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 reliable_send(MESSAGE, DES_IP)
-
+print("send with no problem")
+result = receive_http_proxy()
+print(result)
 # parity  ip/port/split dns
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity
