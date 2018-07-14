@@ -1,6 +1,7 @@
 import socket
 import select
 
+
 # function section
 
 
@@ -188,19 +189,21 @@ sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 UDP_IP_r_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_r_proxy = 5006
 sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-
 TCP_IP_s_server = ""
 # code section
+sent = False
 received = 2  # 0 just send    1 receive ok   2 time out/send
 # MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 # DES_IP = input("enter destionation IP : ")
 # MESSAGE = input("enter your http message : ")
 DES_IP = "www.aut.ac.ir"
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
-reliable_send(MESSAGE, DES_IP)
-print("send with no problem")
-result = receive_http_proxy()
-print(result)
+
+print(received)
+if reliable_send(MESSAGE, DES_IP):
+    print("send with no problem")
+    result = receive_http_proxy()
+    print(result)
 # parity  ip/port/split dns
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity

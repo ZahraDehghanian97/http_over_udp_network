@@ -173,15 +173,8 @@ def check_parity(message):
         return False
 
 
-def receive_http_server():
-    print("proxy waiting for answer from internet ...")
-    data = sock_s.recv(BUFFER_SIZE)
-    print(data)
-    return data
-
-
-def send_http_server(message):
-    global sock_s
+def send_and_receive_http_server(message):
+    global TCP_IP_s_server, TCP_port_s_server, BUFFER_SIZE, data
     print("send request to : ", TCP_IP_s_server, " on port : ", TCP_port_s_server)
     sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock_s.connect((TCP_IP_s_server, TCP_port_s_server))
@@ -189,23 +182,16 @@ def send_http_server(message):
         sock_s.send(bytes("GET / HTTP/1.0\r\n\r\n", 'utf-8'))
     else:
         sock_s.send(bytes(message, 'utf-8'))
-
-
-def send_and_receive_http_server(message):
-    global TCP_IP_s_server, sock_s
-    print("i am here")
-    send_http_server(message)
-    ans = receive_http_server()
+    print("proxy waiting for answer from internet ...")
+    ans = sock_s.recv(BUFFER_SIZE)
     print(ans)
-    temp = str(ans)
-    temp = temp.split('\'')
+    data = str(ans)
+    temp = data.split('\'')
     answer = temp[1].split(' ')
     type = answer[1]
-    print(type)
+    sock_s.close()
     if type == "200":
         print("200 receive answer with no problem ")
-        return ans
-
     elif type == "404":
         print("404 not found")
         return ans
@@ -247,14 +233,12 @@ UDP_IP_s_client = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_s_client = 5006
 BUFFER_SIZE = 2048
 received = 2
+data = ""
 while 1:
-    # sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # socket.getaddrinfo('127.0.0.1', 8080)
     message = receive_http_client()
     print("now we send your request to server ")
-    data = send_and_receive_http_server(message)
-    print("receive message from server : ",data)
+    send_and_receive_http_server(message)
+    print("receive message from server : ", data)
     reliable_send_client(str(data)[2:-1], TCP_IP_s_server)
-    # sock_s.close()
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity
