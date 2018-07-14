@@ -98,7 +98,7 @@ def reliable_send_fragmented(message):
             counter += 1
 
     if counter == 15 and received == 2:
-        print("proxy is not ready to answer")
+        print("client is not ready to receive answer")
         return False
 
 
@@ -118,22 +118,26 @@ def make_parity(message):
 
 def send_http(message):
     global received
+    sock_send_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     # print("send packet")
     # print("UDP target IP:", UDP_IP_s)
     # print("UDP target port:", UDP_PORT_s)
     # print("message:", message)
     sock_send_client.sendto(bytes(message, "utf-8"), (UDP_IP_s_client, UDP_PORT_s_client))
     received = 0
+    sock_send_client.close()
 
 
 def receive_http():
     global received
+    sock_receive_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+    sock_receive_client.bind((UDP_IP_r_client, UDP_PORT_r_client))
     sock_receive_client.setblocking(0)
     print("proxy waiting for ack from client ...")
     ready = select.select([sock_receive_client], [], [], 1)
     if ready[0]:
         receive_data, addr = sock_receive_client.recvfrom(6500)  # buffer size is 1024 bytes
-        # print("client receive message ")
+        sock_receive_client.close()
         if check_parity(receive_data):
             received = 1
             assert isinstance(receive_data, object)
@@ -147,6 +151,7 @@ def receive_http():
     else:
         received = 2
         print("time out ")
+        sock_receive_client.close()
         return 0
 
 
@@ -179,7 +184,6 @@ def send_http_server(message):
     global sock_s
     print("send request to : ", TCP_IP_s_server, " on port : ", TCP_port_s_server)
     sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket.getaddrinfo('127.0.0.1', 8080)
     sock_s.connect((TCP_IP_s_server, TCP_port_s_server))
     if message == "GET / HTTP/1.0\\r\\n\\r\\n":
         sock_s.send(bytes("GET / HTTP/1.0\r\n\r\n", 'utf-8'))
@@ -242,8 +246,6 @@ UDP_PORT_r_client = 5005
 UDP_IP_s_client = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_s_client = 5006
 BUFFER_SIZE = 2048
-sock_send_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock_receive_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 received = 2
 while 1:
     # sock_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -251,6 +253,7 @@ while 1:
     message = receive_http_client()
     print("now we send your request to server ")
     data = send_and_receive_http_server(message)
+    print("receive message from server : ",data)
     reliable_send_client(str(data)[2:-1], TCP_IP_s_server)
     # sock_s.close()
 

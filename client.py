@@ -43,7 +43,7 @@ def reliable_send_fragmented(message):
     global received
     while counter < 15:
         if received == 0:
-            result = receive_http()
+            result = receive_http_ack()
         if received == 1:
             counter = 15
             return True
@@ -95,7 +95,7 @@ def send_http(message):
     received = 0
 
 
-def receive_http():
+def receive_http_ack():
     global received
     print("client waiting for answer ...")
     ready = select.select([sock_receive], [], [], 1)
