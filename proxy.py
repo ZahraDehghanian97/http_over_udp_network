@@ -56,6 +56,9 @@ def send_ack_http_client(data):
 
 
 def reliable_send_client(message, ip):
+    print("***********")
+    print("reliable send to client ")
+    print("***********")
     global received
     received = 2  # 0 just send    1 receive ok   2 time out/send
     callSend = 1
@@ -122,7 +125,7 @@ def send_http(message):
     # print("send packet")
     # print("UDP target IP:", UDP_IP_s)
     # print("UDP target port:", UDP_PORT_s)
-    # print("message:", message)
+    #print("message:", message)
     sock_send_client.sendto(bytes(message, "utf-8"), (UDP_IP_s_client, UDP_PORT_s_client))
     received = 0
     sock_send_client.close()
@@ -141,7 +144,7 @@ def receive_http():
         if check_parity(receive_data):
             received = 1
             assert isinstance(receive_data, object)
-            print(receive_data)
+            #print(receive_data)
             return receive_data
         else:
             received = 2
@@ -193,7 +196,7 @@ def send_and_receive_http_server(message):
     t = requests.get(temp)
     answer = t.text
     data = answer
-    print(data)
+    #print(data)
     type = t.status_code
     sock_s.close()
     if type == "200":
@@ -245,6 +248,6 @@ while 1:
     print("now we send your request to server ")
     send_and_receive_http_server(message)
     #print("receive message from server : ", data)
-    reliable_send_client(str(data)[2:-1], TCP_IP_s_server)
+    reliable_send_client(str(data), TCP_IP_s_server)
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity

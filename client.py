@@ -201,7 +201,7 @@ while True :
     received = 2  # 0 just send    1 receive ok   2 time out/send
    # DES_IP = input("enter destionation IP : ")
    # MESSAGE = input("enter message : ")
-    DES_IP = "www.lifehacker.com"
+    DES_IP = "www.ceit.aut.ac.ir"
     MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 
     if reliable_send(MESSAGE, DES_IP):

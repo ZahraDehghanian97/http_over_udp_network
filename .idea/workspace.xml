@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71064edf-4531-4f0a-b308-36f9f87ee517" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client.py" afterPath="$PROJECT_DIR$/client.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proxy.py" afterPath="$PROJECT_DIR$/proxy.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +16,8 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/project$client.coverage" NAME="client Coverage Results" MODIFIED="1530690157212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/project$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1530689348309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project_java$client.coverage" NAME="client Coverage Results" MODIFIED="1531831070087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project_java$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1531831068041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project_java$client.coverage" NAME="client Coverage Results" MODIFIED="1531834734130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project_java$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1531834731626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -25,40 +25,36 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="client.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
+            <state relative-caret-position="118">
               <caret line="203" column="32" lean-forward="false" selection-start-line="203" selection-start-column="32" selection-end-line="203" selection-end-column="32" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#1752#2008#0" expanded="false" />
                 <element signature="e#2041#2272#0" expanded="false" />
                 <element signature="e#2303#2561#0" expanded="false" />
-                <marker date="1531831067961" expanded="true" signature="5547:5973" ph="..." />
-                <marker date="1531831067961" expanded="true" signature="5667:5702" ph="..." />
-                <marker date="1531831067961" expanded="true" signature="5815:5900" ph="..." />
+                <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
+                <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
+                <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="proxy.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="proxy.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proxy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="199" column="40" lean-forward="false" selection-start-line="199" selection-start-column="40" selection-end-line="199" selection-end-column="40" />
+            <state relative-caret-position="-1614">
+              <caret line="146" column="13" lean-forward="false" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#93#596#0" expanded="false" />
                 <element signature="e#634#1258#0" expanded="false" />
                 <element signature="e#1297#1588#0" expanded="false" />
-                <element signature="e#1634#2619#0" expanded="false" />
-                <element signature="e#2665#3056#0" expanded="false" />
-                <element signature="e#3089#3320#0" expanded="false" />
-                <element signature="e#3351#3719#0" expanded="false" />
-                <element signature="e#3746#4592#0" expanded="false" />
-                <element signature="e#4626#4959#0" expanded="false" />
+                <element signature="e#3177#3408#0" expanded="false" />
+                <element signature="e#4714#5047#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -81,6 +77,9 @@
       <find>sock_send_client</find>
       <find>sock_s</find>
       <find>ans</find>
+      <find>send_http</find>
+      <find>data</find>
+      <find>reliable_send_client(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -92,8 +91,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/proxy.py" />
         <option value="$PROJECT_DIR$/client.py" />
+        <option value="$PROJECT_DIR$/proxy.py" />
       </list>
     </option>
   </component>
@@ -469,9 +468,9 @@
             <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531831067961" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
           </folding>
         </state>
       </provider>
@@ -485,12 +484,8 @@
             <element signature="e#93#596#0" expanded="false" />
             <element signature="e#634#1258#0" expanded="false" />
             <element signature="e#1297#1588#0" expanded="false" />
-            <element signature="e#1634#2619#0" expanded="false" />
-            <element signature="e#2665#3056#0" expanded="false" />
-            <element signature="e#3089#3320#0" expanded="false" />
-            <element signature="e#3351#3719#0" expanded="false" />
-            <element signature="e#3746#4592#0" expanded="false" />
-            <element signature="e#4626#4959#0" expanded="false" />
+            <element signature="e#3177#3408#0" expanded="false" />
+            <element signature="e#4714#5047#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -504,9 +499,9 @@
             <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531831067961" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
           </folding>
         </state>
       </provider>
@@ -520,12 +515,8 @@
             <element signature="e#93#596#0" expanded="false" />
             <element signature="e#634#1258#0" expanded="false" />
             <element signature="e#1297#1588#0" expanded="false" />
-            <element signature="e#1634#2619#0" expanded="false" />
-            <element signature="e#2665#3056#0" expanded="false" />
-            <element signature="e#3089#3320#0" expanded="false" />
-            <element signature="e#3351#3719#0" expanded="false" />
-            <element signature="e#3746#4592#0" expanded="false" />
-            <element signature="e#4626#4959#0" expanded="false" />
+            <element signature="e#3177#3408#0" expanded="false" />
+            <element signature="e#4714#5047#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -539,9 +530,9 @@
             <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531831067961" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
           </folding>
         </state>
       </provider>
@@ -555,12 +546,8 @@
             <element signature="e#93#596#0" expanded="false" />
             <element signature="e#634#1258#0" expanded="false" />
             <element signature="e#1297#1588#0" expanded="false" />
-            <element signature="e#1634#2619#0" expanded="false" />
-            <element signature="e#2665#3056#0" expanded="false" />
-            <element signature="e#3089#3320#0" expanded="false" />
-            <element signature="e#3351#3719#0" expanded="false" />
-            <element signature="e#3746#4592#0" expanded="false" />
-            <element signature="e#4626#4959#0" expanded="false" />
+            <element signature="e#3177#3408#0" expanded="false" />
+            <element signature="e#4714#5047#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -574,9 +561,9 @@
             <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531831067961" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
           </folding>
         </state>
       </provider>
@@ -590,47 +577,39 @@
             <element signature="e#93#596#0" expanded="false" />
             <element signature="e#634#1258#0" expanded="false" />
             <element signature="e#1297#1588#0" expanded="false" />
-            <element signature="e#1634#2619#0" expanded="false" />
-            <element signature="e#2665#3056#0" expanded="false" />
-            <element signature="e#3089#3320#0" expanded="false" />
-            <element signature="e#3351#3719#0" expanded="false" />
-            <element signature="e#3746#4592#0" expanded="false" />
-            <element signature="e#4626#4959#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proxy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="199" column="40" lean-forward="false" selection-start-line="199" selection-start-column="40" selection-end-line="199" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#93#596#0" expanded="false" />
-            <element signature="e#634#1258#0" expanded="false" />
-            <element signature="e#1297#1588#0" expanded="false" />
-            <element signature="e#1634#2619#0" expanded="false" />
-            <element signature="e#2665#3056#0" expanded="false" />
-            <element signature="e#3089#3320#0" expanded="false" />
-            <element signature="e#3351#3719#0" expanded="false" />
-            <element signature="e#3746#4592#0" expanded="false" />
-            <element signature="e#4626#4959#0" expanded="false" />
+            <element signature="e#3177#3408#0" expanded="false" />
+            <element signature="e#4714#5047#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
+        <state relative-caret-position="118">
           <caret line="203" column="32" lean-forward="false" selection-start-line="203" selection-start-column="32" selection-end-line="203" selection-end-column="32" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531831067961" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531831067961" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
+            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1614">
+          <caret line="146" column="13" lean-forward="false" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#93#596#0" expanded="false" />
+            <element signature="e#634#1258#0" expanded="false" />
+            <element signature="e#1297#1588#0" expanded="false" />
+            <element signature="e#3177#3408#0" expanded="false" />
+            <element signature="e#4714#5047#0" expanded="false" />
           </folding>
         </state>
       </provider>
