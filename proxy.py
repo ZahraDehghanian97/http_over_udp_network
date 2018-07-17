@@ -2,7 +2,7 @@ import socket
 
 # function part
 import select
-
+import requests
 
 def receive_http_client():
     global TCP_IP_s_server
@@ -60,12 +60,12 @@ def reliable_send_client(message, ip):
     received = 2  # 0 just send    1 receive ok   2 time out/send
     callSend = 1
     fragment = 0
-    if len(message) > 6500:
-        callSend = int(len(message) / 6500) + 1
+    if len(message) > 1024:
+        callSend = int(len(message) / 1024) + 1
         fragment = 1  # 1 moreFragment    0 o.w
     for x in range(0, callSend):
-        start = x * 6500
-        end = (x + 1) * 6500
+        start = x * 1024
+        end = (x + 1) * 1024
         print(callSend)
         if x == callSend - 1:
             fragment = 0
@@ -183,12 +183,18 @@ def send_and_receive_http_server(message):
     else:
         sock_s.send(bytes(message, 'utf-8'))
     print("proxy waiting for answer from internet ...")
-    ans = sock_s.recv(BUFFER_SIZE)
-    print(ans)
-    data = str(ans)
-    temp = data.split('\'')
-    answer = temp[1].split(' ')
-    type = answer[1]
+    #ans = bytes('',"utf-8")
+    #isNotFinished = True
+    #while isNotFinished :
+    #print("here")
+    #t = sock_s.recv(BUFFER_SIZE)
+    temp = "http://"
+    temp = temp + TCP_IP_s_server
+    t = requests.get(temp)
+    answer = t.text
+    data = answer
+    print(data)
+    type = t.status_code
     sock_s.close()
     if type == "200":
         print("200 receive answer with no problem ")
@@ -231,14 +237,14 @@ UDP_IP_r_client = "127.0.0.1"
 UDP_PORT_r_client = 5005
 UDP_IP_s_client = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_s_client = 5006
-BUFFER_SIZE = 2048
+BUFFER_SIZE = 10000
 received = 2
 data = ""
 while 1:
     message = receive_http_client()
     print("now we send your request to server ")
     send_and_receive_http_server(message)
-    print("receive message from server : ", data)
+    #print("receive message from server : ", data)
     reliable_send_client(str(data)[2:-1], TCP_IP_s_server)
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity

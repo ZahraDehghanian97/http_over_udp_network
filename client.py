@@ -1,6 +1,6 @@
 import socket
 import select
-
+import codecs
 
 # function section
 
@@ -13,12 +13,12 @@ def reliable_send(message, ip):
     received = 2  # 0 just send    1 receive ok   2 time out/send
     callSend = 1
     fragment = 0
-    if len(message) > 6500:
-        callSend = int(len(message) / 6500) + 1
+    if len(message) > 1024:
+        callSend = int(len(message) / 1024) + 1
         fragment = 1  # 1 moreFragment    0 o.w
     for x in range(0, callSend):
-        start = x * 6500
-        end = (x + 1) * 6500
+        start = x * 1024
+        end = (x + 1) * 1024
         print(callSend)
         if x == callSend - 1:
             fragment = 0
@@ -26,12 +26,12 @@ def reliable_send(message, ip):
             ip) + "*" + make_parity(MESSAGE[start: end])
         print("send packet : " + FragmentedMESSAGE)
         if reliable_send_fragmented(FragmentedMESSAGE):
-            print("send succsecfully packet : " + str(x))
+            print("send successfully packet number " + str(x))
             print("\n")
             x += 1
             received = 2
         else:
-            print("can not send packet number : " + str(x))
+            print("can not send packet number " + str(x))
             # parity  ip/port/split dns
             return False
     sock_send.close()
@@ -179,6 +179,12 @@ def send_ack_http_proxy(data):
     sock_send.sendto(data, (UDP_IP_s_proxy, UDP_PORT_s_proxy))
     sock_send.close()
 
+def save_result(result):
+    f = codecs.open("index.html","w","utf-8")
+    print(result)
+    f.write(result)
+    f.close()
+
 
 # send part initiation
 UDP_IP_s_proxy = "127.0.0.1"  # "185.211.88.22"
@@ -191,19 +197,22 @@ UDP_PORT_r_proxy = 5006
 sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 TCP_IP_s_server = ""
 # code section
-sent = False
-received = 2  # 0 just send    1 receive ok   2 time out/send
-# MESSAGE = "GET / HTTP/1.0\r\n\r\n"
-# DES_IP = input("enter destionation IP : ")
-# MESSAGE = input("enter your http message : ")
-DES_IP = "www.aut.ac.ir"
-MESSAGE = "GET / HTTP/1.0\r\n\r\n"
+while True :
+    received = 2  # 0 just send    1 receive ok   2 time out/send
+   # DES_IP = input("enter destionation IP : ")
+   # MESSAGE = input("enter message : ")
+    DES_IP = "www.lifehacker.com"
+    MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 
-print(received)
-if reliable_send(MESSAGE, DES_IP):
-    print("send with no problem")
-    result = receive_http_proxy()
-    print(result)
-# parity  ip/port/split dns
+    if reliable_send(MESSAGE, DES_IP):
+        print("send with no problem")
+        result = receive_http_proxy()
+        save_result(result)
+    else :
+        print("problem in udp sending...")
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity
+#MESSAGE = input("enter your http message : ")
+#DES_IP = "www.aut.ac.ir"
+#MESSAGE = "GET / HTTP/1.0\r\n\r\n"
+
