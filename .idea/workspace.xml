@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71064edf-4531-4f0a-b308-36f9f87ee517" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client.py" afterPath="$PROJECT_DIR$/client.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proxy.py" afterPath="$PROJECT_DIR$/proxy.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,8 +15,8 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/project$client.coverage" NAME="client Coverage Results" MODIFIED="1530690157212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/project$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1530689348309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project_java$client.coverage" NAME="client Coverage Results" MODIFIED="1531834734130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/project_java$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1531834731626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project_java$client.coverage" NAME="client Coverage Results" MODIFIED="1531836784457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/project_java$proxy.coverage" NAME="proxy Coverage Results" MODIFIED="1531836782387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -25,25 +24,26 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="203" column="32" lean-forward="false" selection-start-line="203" selection-start-column="32" selection-end-line="203" selection-end-column="32" />
+            <state relative-caret-position="212">
+              <caret line="205" column="0" lean-forward="true" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <element signature="e#1752#2008#0" expanded="false" />
                 <element signature="e#2041#2272#0" expanded="false" />
                 <element signature="e#2303#2561#0" expanded="false" />
-                <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
-                <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
-                <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
+                <marker date="1531836782305" expanded="true" signature="3798:3942" ph="..." />
+                <marker date="1531836782305" expanded="true" signature="3880:3942" ph="..." />
+                <marker date="1531836782305" expanded="true" signature="5553:5937" ph="..." />
+                <marker date="1531836782305" expanded="true" signature="5663:5698" ph="..." />
+                <marker date="1531836782305" expanded="true" signature="5799:5872" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="proxy.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="proxy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proxy.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1614">
@@ -79,6 +79,8 @@
       <find>ans</find>
       <find>send_http</find>
       <find>data</find>
+      <find>check_parity</find>
+      <find>defra</find>
       <find>reliable_send_client(</find>
     </findStrings>
   </component>
@@ -91,8 +93,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client.py" />
         <option value="$PROJECT_DIR$/proxy.py" />
+        <option value="$PROJECT_DIR$/client.py" />
       </list>
     </option>
   </component>
@@ -424,7 +426,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17916666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -432,7 +434,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32968238" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32858709" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32858709" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -465,12 +467,13 @@
           <caret line="28" column="36" lean-forward="false" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3798:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3880:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5553:5937" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5663:5698" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5799:5872" ph="..." />
           </folding>
         </state>
       </provider>
@@ -496,12 +499,13 @@
           <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3798:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3880:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5553:5937" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5663:5698" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5799:5872" ph="..." />
           </folding>
         </state>
       </provider>
@@ -527,12 +531,13 @@
           <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3798:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3880:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5553:5937" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5663:5698" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5799:5872" ph="..." />
           </folding>
         </state>
       </provider>
@@ -558,12 +563,13 @@
           <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1752#2008#0" expanded="false" />
             <element signature="e#2041#2272#0" expanded="false" />
             <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3798:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3880:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5553:5937" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5663:5698" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5799:5872" ph="..." />
           </folding>
         </state>
       </provider>
@@ -583,22 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="203" column="32" lean-forward="false" selection-start-line="203" selection-start-column="32" selection-end-line="203" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1752#2008#0" expanded="false" />
-            <element signature="e#2041#2272#0" expanded="false" />
-            <element signature="e#2303#2561#0" expanded="false" />
-            <marker date="1531833533740" expanded="true" signature="5547:5973" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5667:5702" ph="..." />
-            <marker date="1531833533740" expanded="true" signature="5815:5900" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proxy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1614">
@@ -610,6 +600,23 @@
             <element signature="e#1297#1588#0" expanded="false" />
             <element signature="e#3177#3408#0" expanded="false" />
             <element signature="e#4714#5047#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="205" column="0" lean-forward="true" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#2041#2272#0" expanded="false" />
+            <element signature="e#2303#2561#0" expanded="false" />
+            <marker date="1531836782305" expanded="true" signature="3798:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="3880:3942" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5553:5937" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5663:5698" ph="..." />
+            <marker date="1531836782305" expanded="true" signature="5799:5872" ph="..." />
           </folding>
         </state>
       </provider>
