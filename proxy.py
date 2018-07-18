@@ -1,9 +1,11 @@
 import socket
-
-# function part
+#import dns.resolver
+import socket
 import select
 import requests
 
+
+# HTTP
 def receive_http_client():
     global TCP_IP_s_server
     hope = 1
@@ -21,7 +23,6 @@ def receive_http_client():
         return myMessage
     else:
         print("parity error , remove the packet from buffer...")
-
 
 def receive_http_fragmented():
     sock_c = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
@@ -53,7 +54,6 @@ def send_ack_http_client(data):
     # print("\n")
     sock_c.sendto(data, (UDP_IP_s_client, UDP_PORT_s_client))
     sock_c.close()
-
 
 def reliable_send_client(message, ip):
     print("***********")
@@ -103,7 +103,6 @@ def reliable_send_fragmented(message):
     if counter == 15 and received == 2:
         print("client is not ready to receive answer")
         return False
-
 
 def make_parity(message):
     print(message)
@@ -157,7 +156,6 @@ def receive_http():
         sock_receive_client.close()
         return 0
 
-
 def check_parity(message):
     # m[2] data - m[4] parity
     print(message)
@@ -174,7 +172,6 @@ def check_parity(message):
         return True
     else:
         return False
-
 
 def send_and_receive_http_server(message):
     global TCP_IP_s_server, TCP_port_s_server, BUFFER_SIZE, data
@@ -201,12 +198,13 @@ def send_and_receive_http_server(message):
     sock_s.close()
     if type == "200":
         print("200 receive answer with no problem ")
+        return data
     elif type == "404":
         print("404 not found")
-        return ans
+        return data
     elif type == "403":
         print("403 forbidden")
-        return ans
+        return data
     elif type == "301" or type == "302":
         print("301/302 move temporarily")
         for i in answer:
@@ -217,7 +215,8 @@ def send_and_receive_http_server(message):
                 new_location = new_location[1].split('\\')
                 TCP_IP_s_server = new_location[0]
                 make_ready_ip(TCP_IP_s_server, message)
-
+    else:
+        return data
 
 def make_ready_ip(ip, message):
     global TCP_IP_s_server
@@ -234,6 +233,115 @@ def make_ready_ip(ip, message):
     send_and_receive_http_server(m)
 
 
+
+
+
+
+# DNS
+
+def receive_dns_client():
+    global msg
+    print("proxy waiting for dns query ...")
+    d.bind((TCP_IP, TCP_PORT))
+    d.listen(1)
+    conn, addr = d.accept()
+    print('Connection address:', addr)
+    while 1:
+        data = conn.recv(BUFFER_SIZE)
+        if not data: break
+        print("received data:", data)
+        msg = str(data)
+        # tmp = str(msg)
+        msg = msg[2:-1].split('*')
+        show_result_dns(msg)
+        data = findAnswer("dns", msg)
+        print("final data" + data)
+        data = bytes(data, 'utf-8')
+        conn.send(data)  # echo
+    conn.close()
+
+    show_result_dns(msg)
+
+    # return m
+
+
+def send_dns_server_udp(dns_query):
+    ip_addr =""
+    myResolver = dns.resolver.Resolver()  # create a new instance named 'myResolver'
+    myResolver.timeout = 0.01
+    if dns_query[0] == "A":
+        if "www" in dns_query[2]:
+            dns_query[2] = dns_query[2][3:].split("www")
+        print(dns_query[2])
+        ip_addr = socket.gethostbyname(dns_query[2])
+        print(ip_addr)  # print IP address
+    elif dns_query[0] == "CNAME":
+        answers = myResolver.query(dns_query[2], 'CNAME')
+        print(' query qname:', answers.qname, ' num ans.', len(answers))
+        for rdata in answers:
+            ip_addr = str(ip_addr + str(rdata.target) + "@")
+           # print(' cname target address:', rdata.target + "@")
+
+        # info= socket.gethostbyname_ex(dns_query[2])
+        # ip_addr = info[2]
+    send_data = send_dns_client_tcp(ip_addr)
+    print(send_data)
+    return send_data
+
+
+def send_dns_client_tcp(MESSAGE_IP):
+    print("send packet from proxy")
+    print("DNS target IP:", TCP_IP)
+    print("DNS target port:", TCP_PORT)
+    print("DNS target name:", msg[2])
+    # print("message:", msg[3])
+    newmsg = str(msg[0] + "*" + TCP_IP + "*" + msg[2] + "*" + MESSAGE_IP)
+    print("send_dns_server_udp" + newmsg)
+    return newmsg
+
+
+def show_result_dns(message):
+    print("received message:", message)
+
+
+def  findAnswer (type,msg):
+    global turn
+    flag = True
+    if turn == 10:
+        turn = 0
+    for i in cache:
+        if msg in i:
+            print("find result in cache ... ")
+            flag = False
+            return i[1]
+
+    if flag :
+        print ("result did not find in cache ... ")
+        print("we send your request to server ")
+        if type == "dns":
+            ans =  send_dns_server_udp(msg)
+        if type == "http":
+            ans = send_and_receive_http_server(msg)
+        if len(cache) < 10:
+            cache.append([msg, ans])
+            return ans
+        elif len(cache) == 10:
+            del cache[turn]
+            cache.insert(turn, [self.cacheSaveMsg, data])
+            turn = turn + 1
+            return ans
+
+
+# DNS
+
+TCP_IP = '127.0.0.1'
+TCP_PORT = 5008
+BUFFER_SIZE = 1024
+
+#d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#receive_dns_client()
+
+# HTTP
 TCP_port_s_server = 80
 TCP_IP_s_server = ""
 UDP_IP_r_client = "127.0.0.1"
@@ -243,11 +351,22 @@ UDP_PORT_s_client = 5006
 BUFFER_SIZE = 10000
 received = 2
 data = ""
+turn = 0
+cache = []
+
+d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+
 while 1:
-    message = receive_http_client()
-    print("now we send your request to server ")
-    send_and_receive_http_server(message)
-    #print("receive message from server : ", data)
-    reliable_send_client(str(data), TCP_IP_s_server)
+    httpOrDns = input("please enter your type : dns / http ")
+    if httpOrDns == "dns":
+        receive_dns_client()
+    elif httpOrDns == "http":
+        message = receive_http_client()
+        data = findAnswer("http", message)
+        #print("receive message from server : ", data)
+        reliable_send_client(str(data), TCP_IP_s_server)
+    else :
+        print("enter correct type : dns / http ")
 
 # http type setting numberOfPacke * moreFragment * message * IPDestination * parity
