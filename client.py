@@ -262,7 +262,38 @@ if reliable_send(MESSAGE, DES_IP):
 else :
     print("problem in udp sending...")
 
-# http type setting numberOfPacke * moreFragment * message * IPDestination * parity
+    x = input("please initialize client")
+    x = x.split(" ")
+    d = x[1].split("=")
+    temp = d[1].split(":")
+    tcpOrUdp = temp[0]
+    if tcpOrUdp == "tcp":
+        TCP_IP = str(temp[1])
+        TCP_PORT = int(temp[2])
+        
+        TCP_Target = 'mail.google.com'
+        DNS_type = 'A'  # CNAME
+        BUFFER_SIZE = 1024
+        # MESSAGE = "Hello, World!"
+
+        d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        send_dns()
+        receive_dns()
+    elif tcpOrUdp == "udp":
+        UDP_IP_r_client = str(temp[1])
+        UDP_PORT_r_client = int(temp[2])
+        message = receive_http_client()
+        data = findAnswer("http", message)
+        # print("receive message from server : ", data)
+        reliable_send_client(str(data), TCP_IP_s_server)
+    else:
+        print(d)
+        print("enter correct request")
+        print("like : client –s=udp:127.0.0.1:80")
+
+
+
+        # http type setting numberOfPacke * moreFragment * message * IPDestination * parity
 #MESSAGE = input("enter your http message : ")
 #DES_IP = "www.aut.ac.ir"
 #MESSAGE = "GET / HTTP/1.0\r\n\r\n"

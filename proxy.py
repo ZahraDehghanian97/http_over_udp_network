@@ -359,7 +359,7 @@ cache = []
 d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
-x = input()
+x = input("please initialiaze proxy...")
 x = x.split(" ")
 d = x[1].split("=")
 temp = d[1].split(":")
