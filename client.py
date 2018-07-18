@@ -224,7 +224,6 @@ def show_result_dns(message):
 
 
 # DNS
-
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5008
 TCP_Target = 'mail.google.com'
@@ -233,12 +232,8 @@ BUFFER_SIZE = 1024
 # MESSAGE = "Hello, World!"
 
 d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-send_dns()
-receive_dns()
 
 # HTTP
-
-# send part initiation
 UDP_IP_s_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_s_proxy = 5005
 sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
@@ -247,12 +242,11 @@ UDP_IP_r_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_r_proxy = 5006
 sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 TCP_IP_s_server = ""
-# code section
-
 received = 2  # 0 just send    1 receive ok   2 time out/send
 DES_IP = "www.lifeHacker.com"
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 
+# code section
 x = input("please initialize client")
 x = x.split(" ")
 d = x[1].split("=")
@@ -262,8 +256,8 @@ if tcpOrUdp == "tcp":
     TCP_IP = str(temp[1])
     TCP_PORT = int(temp[2])
 
-    TCP_Target = 'mail.google.com'
-    DNS_type = 'A'  # CNAME
+    TCP_Target = input("enter your target ")# 'mail.google.com'
+    DNS_type =input("enter your query type") # 'A'  # CNAME
     BUFFER_SIZE = 1024
     # MESSAGE = "Hello, World!"
 
