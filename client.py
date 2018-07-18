@@ -1,9 +1,10 @@
 import socket
+import socket
 import select
 import codecs
 
-# function section
 
+# function section
 
 def reliable_send(message, ip):
     global received, sock_send, sock_receive
@@ -22,8 +23,8 @@ def reliable_send(message, ip):
         print(callSend)
         if x == callSend - 1:
             fragment = 0
-        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + MESSAGE[start: end] + '*' + str(
-            ip) + "*" + make_parity(MESSAGE[start: end])
+        FragmentedMESSAGE = str(x) + '*@--' + str(fragment) + '*@--' + MESSAGE[start: end] + '*@--' + str(
+            ip) + "*@--" + make_parity(MESSAGE[start: end])
         print("send packet : " + FragmentedMESSAGE)
         if reliable_send_fragmented(FragmentedMESSAGE):
             print("send successfully packet number " + str(x))
@@ -60,7 +61,8 @@ def reliable_send_fragmented(message):
 def check_parity(message):
     # m[2] data - m[4] parity
     temp = str(message)
-    m = temp[2:-1].split('*')
+    m = temp[2:-1].split('*@--')
+    print(m[2])
     p = 0
     for i in m[2]:
         p += ord(i)
@@ -135,8 +137,12 @@ def receive_http_proxy():
         # print(temp)
         TCP_IP_s_server = str(temp[3])
         myMessage = str(temp[2])
+
         while temp[1] == str(1):
             temp = receive_http_fragmented()
+            while temp == str(-1):
+                print("parity error , remove the packet from buffer...")
+                temp = receive_http_fragmented()
             if temp[0] == str(hope):
                 myMessage += temp[2]
                 hope += 1
@@ -144,64 +150,109 @@ def receive_http_proxy():
         return myMessage
     else:
         print("parity error , remove the packet from buffer...")
-    #sock_receive.close()
-    #sock_send.close()
-
+    sock_receive.close()
+    sock_send.close()
 
 def receive_http_fragmented():
-    print("client is waiting for response packet ...")
-    notReceive = True
-    while notReceive:
-        data, addr = sock_receive.recvfrom(6500)  # buffer size is 6500 bytes
-        print("receive packet")
-        assert isinstance(data, object)
-        print("received message:", data)
-        notReceive = False
+        print("client is waiting for response packet ...")
+        notReceive = True
+        while notReceive:
+            data, addr = sock_receive.recvfrom(6500)  # buffer size is 6500 bytes
+            print("receive packet")
+            assert isinstance(data, object)
+            print("received message:", data)
+            notReceive = False
 
-    if check_parity(data):
-        print(data)
-        temp = str(data)
-        m = temp[2:-1].split('*')
-        send_ack_http_proxy(data)
-        return m
-    else:
-        return -1
+        if check_parity(data):
+            print(data)
+            temp = str(data)
+            m = temp[2:-1].split('*@--')
+            send_ack_http_proxy(data)
+            return m
+        else:
+            print("parity error")
+            return -1
 
 
 def send_ack_http_proxy(data):
     print("send ack to proxy")
     global sock_send
     sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-    #print("UDP target IP:", UDP_IP_s_proxy)
-    #print("UDP target port:", UDP_PORT_s_proxy)
-    #print("message:", data)
+    print("UDP target IP:", UDP_IP_s_proxy)
+    print("UDP target port:", UDP_PORT_s_proxy)
+    print("message:", data)
     print("\n")
     sock_send.sendto(data, (UDP_IP_s_proxy, UDP_PORT_s_proxy))
     sock_send.close()
 
+
 def save_result(result):
-    f = codecs.open("index.html","w","utf-8")
+    f = codecs.open("index.html", "w", "utf-8")
     print(result)
     f.write(result)
     f.close()
 
 
+def send_dns():
+    print("send packet")
+    print("DNS target IP:", TCP_IP)
+    print("DNS target port:", TCP_PORT)
+    print("DNS target name:", TCP_Target)
+    # print("message:", message)
+    newmsg = bytes(DNS_type + "*@--" + TCP_IP + "*@--" + TCP_Target, 'utf-8')
+    d.connect((TCP_IP, TCP_PORT))
+    d.send(newmsg)
+
+
+def receive_dns():
+    print("client waiting for answer ...")
+
+    data = str(d.recv(BUFFER_SIZE))
+    d.close()
+    rcv_data = data[2:-1].split('*@--')
+    target_ips = rcv_data[3]
+    target_ips = target_ips.split('.@')
+    print("recieved packet")
+    print("DNS query type IP:", rcv_data[0])
+    print("DNS query target names:", rcv_data[2])
+    print("DNS query tareget Ips:", target_ips)
+    show_result_dns(rcv_data)
+
+
+def show_result_dns(message):
+    print("received message:", message)
+
+
+# DNS
+
+TCP_IP = '127.0.0.1'
+TCP_PORT = 5008
+TCP_Target = 'mail.google.com'
+DNS_type = 'A'  # CNAME
+BUFFER_SIZE = 1024
+# MESSAGE = "Hello, World!"
+
+d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+send_dns()
+receive_dns()
+
+# HTTP
+
 # send part initiation
 UDP_IP_s_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_s_proxy = 5005
 sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-
 # receive part initiation
 UDP_IP_r_proxy = "127.0.0.1"  # "185.211.88.22"
 UDP_PORT_r_proxy = 5006
 sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 TCP_IP_s_server = ""
 # code section
-#while True :
+
 received = 2  # 0 just send    1 receive ok   2 time out/send
 # DES_IP = input("enter destionation IP : ")
 # MESSAGE = input("enter message : ")
-DES_IP = "www.ceit.aut.ac.ir"
+DES_IP = "www.lifeHacker.com"
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 
 if reliable_send(MESSAGE, DES_IP):
@@ -215,4 +266,3 @@ else :
 #MESSAGE = input("enter your http message : ")
 #DES_IP = "www.aut.ac.ir"
 #MESSAGE = "GET / HTTP/1.0\r\n\r\n"
-

@@ -1,5 +1,4 @@
-import socket
-#import dns.resolver
+import dns.resolver
 import socket
 import select
 import requests
@@ -24,6 +23,7 @@ def receive_http_client():
     else:
         print("parity error , remove the packet from buffer...")
 
+
 def receive_http_fragmented():
     sock_c = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock_c.bind((UDP_IP_r_client, UDP_PORT_r_client))
@@ -38,12 +38,13 @@ def receive_http_fragmented():
     if check_parity(data):
         print(data)
         temp = str(data)
-        m = temp[2:-1].split('*')
+        m = temp[2:-1].split('*@--')
+        sock_c.close()
         send_ack_http_client(data)
         return m
     else:
+        sock_c.close()
         return -1
-    sock_c.close()
 
 
 def send_ack_http_client(data):
@@ -54,6 +55,7 @@ def send_ack_http_client(data):
     # print("\n")
     sock_c.sendto(data, (UDP_IP_s_client, UDP_PORT_s_client))
     sock_c.close()
+
 
 def reliable_send_client(message, ip):
     print("***********")
@@ -72,8 +74,8 @@ def reliable_send_client(message, ip):
         print(callSend)
         if x == callSend - 1:
             fragment = 0
-        FragmentedMESSAGE = str(x) + '*' + str(fragment) + '*' + message[start: end] + '*' + str(
-            ip) + "*" + make_parity(message[start: end])
+        FragmentedMESSAGE = str(x) + '*@--' + str(fragment) + '*@--' + message[start: end] + '*@--' + str(
+            ip) + "*@--" + make_parity(message[start: end])
         print("send packet : " + FragmentedMESSAGE)
         if reliable_send_fragmented(FragmentedMESSAGE):
             print("send succsecfully packet : " + str(x))
@@ -104,6 +106,7 @@ def reliable_send_fragmented(message):
         print("client is not ready to receive answer")
         return False
 
+
 def make_parity(message):
     print(message)
     m = bytes(message, "utf-8")
@@ -124,7 +127,7 @@ def send_http(message):
     # print("send packet")
     # print("UDP target IP:", UDP_IP_s)
     # print("UDP target port:", UDP_PORT_s)
-    #print("message:", message)
+    # print("message:", message)
     sock_send_client.sendto(bytes(message, "utf-8"), (UDP_IP_s_client, UDP_PORT_s_client))
     received = 0
     sock_send_client.close()
@@ -143,7 +146,7 @@ def receive_http():
         if check_parity(receive_data):
             received = 1
             assert isinstance(receive_data, object)
-            #print(receive_data)
+            # print(receive_data)
             return receive_data
         else:
             received = 2
@@ -156,11 +159,12 @@ def receive_http():
         sock_receive_client.close()
         return 0
 
+
 def check_parity(message):
     # m[2] data - m[4] parity
     print(message)
     temp = str(message)
-    m = temp[2:-1].split('*')
+    m = temp[2:-1].split('*@--')
     p = 0
     print(m[2])
     for i in m[2]:
@@ -173,6 +177,7 @@ def check_parity(message):
     else:
         return False
 
+
 def send_and_receive_http_server(message):
     global TCP_IP_s_server, TCP_port_s_server, BUFFER_SIZE, data
     print("send request to : ", TCP_IP_s_server, " on port : ", TCP_port_s_server)
@@ -183,17 +188,17 @@ def send_and_receive_http_server(message):
     else:
         sock_s.send(bytes(message, 'utf-8'))
     print("proxy waiting for answer from internet ...")
-    #ans = bytes('',"utf-8")
-    #isNotFinished = True
-    #while isNotFinished :
-    #print("here")
-    #t = sock_s.recv(BUFFER_SIZE)
+    # ans = bytes('',"utf-8")
+    # isNotFinished = True
+    # while isNotFinished :
+    # print("here")
+    # t = sock_s.recv(BUFFER_SIZE)
     temp = "http://"
     temp = temp + TCP_IP_s_server
     t = requests.get(temp)
     answer = t.text
     data = answer
-    #print(data)
+    # print(data)
     type = t.status_code
     sock_s.close()
     if type == "200":
@@ -218,6 +223,7 @@ def send_and_receive_http_server(message):
     else:
         return data
 
+
 def make_ready_ip(ip, message):
     global TCP_IP_s_server
     temp = ip.split('/')
@@ -231,10 +237,6 @@ def make_ready_ip(ip, message):
         m = message
     print(m)
     send_and_receive_http_server(m)
-
-
-
-
 
 
 # DNS
@@ -252,7 +254,7 @@ def receive_dns_client():
         print("received data:", data)
         msg = str(data)
         # tmp = str(msg)
-        msg = msg[2:-1].split('*')
+        msg = msg[2:-1].split('*@--')
         show_result_dns(msg)
         data = findAnswer("dns", msg)
         print("final data" + data)
@@ -266,7 +268,7 @@ def receive_dns_client():
 
 
 def send_dns_server_udp(dns_query):
-    ip_addr =""
+    ip_addr = ""
     myResolver = dns.resolver.Resolver()  # create a new instance named 'myResolver'
     myResolver.timeout = 0.01
     if dns_query[0] == "A":
@@ -280,10 +282,10 @@ def send_dns_server_udp(dns_query):
         print(' query qname:', answers.qname, ' num ans.', len(answers))
         for rdata in answers:
             ip_addr = str(ip_addr + str(rdata.target) + "@")
-           # print(' cname target address:', rdata.target + "@")
+            # print(' cname target address:', rdata.target + "@")
 
-        # info= socket.gethostbyname_ex(dns_query[2])
-        # ip_addr = info[2]
+            # info= socket.gethostbyname_ex(dns_query[2])
+            # ip_addr = info[2]
     send_data = send_dns_client_tcp(ip_addr)
     print(send_data)
     return send_data
@@ -295,7 +297,7 @@ def send_dns_client_tcp(MESSAGE_IP):
     print("DNS target port:", TCP_PORT)
     print("DNS target name:", msg[2])
     # print("message:", msg[3])
-    newmsg = str(msg[0] + "*" + TCP_IP + "*" + msg[2] + "*" + MESSAGE_IP)
+    newmsg = str(msg[0] + "*@--" + TCP_IP + "*@--" + msg[2] + "*@--" + MESSAGE_IP)
     print("send_dns_server_udp" + newmsg)
     return newmsg
 
@@ -304,7 +306,7 @@ def show_result_dns(message):
     print("received message:", message)
 
 
-def  findAnswer (type,msg):
+def findAnswer(type, msg):
     global turn
     flag = True
     if turn == 10:
@@ -315,11 +317,11 @@ def  findAnswer (type,msg):
             flag = False
             return i[1]
 
-    if flag :
-        print ("result did not find in cache ... ")
+    if flag:
+        print("result did not find in cache ... ")
         print("we send your request to server ")
         if type == "dns":
-            ans =  send_dns_server_udp(msg)
+            ans = send_dns_server_udp(msg)
         if type == "http":
             ans = send_and_receive_http_server(msg)
         if len(cache) < 10:
@@ -327,8 +329,8 @@ def  findAnswer (type,msg):
             return ans
         elif len(cache) == 10:
             del cache[turn]
-            cache.insert(turn, [self.cacheSaveMsg, data])
-            turn = turn + 1
+            cache.insert(turn, [msg, ans])
+            turn += 1
             return ans
 
 
@@ -338,8 +340,8 @@ TCP_IP = '127.0.0.1'
 TCP_PORT = 5008
 BUFFER_SIZE = 1024
 
-#d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#receive_dns_client()
+# d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# receive_dns_client()
 
 # HTTP
 TCP_port_s_server = 80
@@ -357,16 +359,26 @@ cache = []
 d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
-while 1:
-    httpOrDns = input("please enter your type : dns / http ")
-    if httpOrDns == "dns":
-        receive_dns_client()
-    elif httpOrDns == "http":
-        message = receive_http_client()
-        data = findAnswer("http", message)
-        #print("receive message from server : ", data)
-        reliable_send_client(str(data), TCP_IP_s_server)
-    else :
-        print("enter correct type : dns / http ")
+x = input()
+x = x.split(" ")
+d = x[1].split("=")
+temp = d[1].split(":")
+tcpOrUdp = temp[0]
+if tcpOrUdp == "tcp":
+    TCP_IP = str(temp[1])
+    TCP_PORT = int(temp[2])
+    receive_dns_client()
+elif tcpOrUdp == "udp":
+    UDP_IP_r_client = str(temp[1])
+    UDP_PORT_r_client = int(temp[2])
+    message = receive_http_client()
+    data = findAnswer("http", message)
+    # print("receive message from server : ", data)
+    reliable_send_client(str(data), TCP_IP_s_server)
+else:
+    print(d)
+    print("enter correct request")
+    print("like : proxy –s=udp:127.0.0.1:80 –d=tcp")
 
-# http type setting numberOfPacke * moreFragment * message * IPDestination * parity
+
+        # http type setting numberOfPacke * moreFragment * message * IPDestination * parity
