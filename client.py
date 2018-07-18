@@ -250,46 +250,43 @@ TCP_IP_s_server = ""
 # code section
 
 received = 2  # 0 just send    1 receive ok   2 time out/send
-# DES_IP = input("enter destionation IP : ")
-# MESSAGE = input("enter message : ")
 DES_IP = "www.lifeHacker.com"
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 
-if reliable_send(MESSAGE, DES_IP):
-    print("send with no problem")
-    result = receive_http_proxy()
-    save_result(result)
-else :
-    print("problem in udp sending...")
+x = input("please initialize client")
+x = x.split(" ")
+d = x[1].split("=")
+temp = d[1].split(":")
+tcpOrUdp = temp[0]
+if tcpOrUdp == "tcp":
+    TCP_IP = str(temp[1])
+    TCP_PORT = int(temp[2])
 
-    x = input("please initialize client")
-    x = x.split(" ")
-    d = x[1].split("=")
-    temp = d[1].split(":")
-    tcpOrUdp = temp[0]
-    if tcpOrUdp == "tcp":
-        TCP_IP = str(temp[1])
-        TCP_PORT = int(temp[2])
-        
-        TCP_Target = 'mail.google.com'
-        DNS_type = 'A'  # CNAME
-        BUFFER_SIZE = 1024
-        # MESSAGE = "Hello, World!"
+    TCP_Target = 'mail.google.com'
+    DNS_type = 'A'  # CNAME
+    BUFFER_SIZE = 1024
+    # MESSAGE = "Hello, World!"
 
-        d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        send_dns()
-        receive_dns()
-    elif tcpOrUdp == "udp":
-        UDP_IP_r_client = str(temp[1])
-        UDP_PORT_r_client = int(temp[2])
-        message = receive_http_client()
-        data = findAnswer("http", message)
-        # print("receive message from server : ", data)
-        reliable_send_client(str(data), TCP_IP_s_server)
+    d = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    send_dns()
+    receive_dns()
+elif tcpOrUdp == "udp":
+    UDP_IP_s_proxy = str(temp[1])
+    UDP_PORT_s_proxy = int(temp[2])
+    DES_IP = input("enter destionation IP : ")
+    MESSAGE = input("enter message : ")
+    # DES_IP = "www.lifeHacker.com"
+    # MESSAGE = "GET / HTTP/1.0\r\n\r\n"
+    if reliable_send(MESSAGE, DES_IP):
+        print("send with no problem")
+        result = receive_http_proxy()
+        save_result(result)
     else:
-        print(d)
-        print("enter correct request")
-        print("like : client –s=udp:127.0.0.1:80")
+        print("problem in udp sending...")
+else:
+    print(d)
+    print("enter correct request")
+    print("like : client –s=udp:127.0.0.1:80")
 
 
 
