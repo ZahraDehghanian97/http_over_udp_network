@@ -7,8 +7,9 @@ def receive_dns_client():
     s.bind((TCP_IP, TCP_PORT))
     s.listen(1)
     conn, addr = s.accept()
+    flag = True
     print('Connection address:', addr)
-    while 1:
+    while flag:
         data = conn.recv(BUFFER_SIZE)
         if not data: break
         print("received data:", data)
@@ -20,7 +21,9 @@ def receive_dns_client():
         print("final data" + data)
         data = bytes(data, 'utf-8')
         conn.send(data)  # echo
-    conn.close()
+
+
+    # conn.close()
 
     show_result_dns(msg)
 

@@ -10,7 +10,7 @@ def send_dns():
     print("DNS target port:", TCP_PORT)
     print("DNS target name:", TCP_Target)
     # print("message:", message)
-    newmsg = bytes(DNS_type + "*@--" + TCP_IP + "*@--" + TCP_Target, 'utf-8')
+    newmsg = bytes(DNS_type + "*@--" + TCP_IP + "*@--" + TCP_Target , 'utf-8')
     s.connect((TCP_IP, TCP_PORT))
     s.send(newmsg)
 
@@ -19,7 +19,7 @@ def receive_dns():
     print("client waiting for answer ...")
 
     data = str(s.recv(BUFFER_SIZE))
-    s.close()
+    # s.close()
     rcv_data = data[2:-1].split('*@--')
     target_ips = rcv_data[3]
     target_ips = target_ips.split('.@')
@@ -36,12 +36,16 @@ def show_result_dns(message):
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
-TCP_Target = 'mail.google.com'
+TCP_Target = 'soft98.ir'
 DNS_type = 'CNAME'  # CNAME
 BUFFER_SIZE = 1024
 # MESSAGE = "Hello, World!"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 send_dns()
 
 receive_dns()
+
+
+
