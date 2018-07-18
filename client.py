@@ -195,11 +195,11 @@ def save_result(result):
 
 def send_dns():
     print("send packet")
-    print("DNS target IP:", TCP_IP)
+    print("DNS target IP:", TCP_IP_dns)
     print("DNS target port:", TCP_PORT)
     print("DNS target name:", TCP_Target)
     # print("message:", message)
-    newmsg = bytes(DNS_type + "*@--" + TCP_IP + "*@--" + TCP_Target, 'utf-8')
+    newmsg = bytes(DNS_type + "*@--" + TCP_IP_dns + "*@--" + TCP_Target , 'utf-8')
     d.connect((TCP_IP, TCP_PORT))
     d.send(newmsg)
 
@@ -247,17 +247,18 @@ DES_IP = "www.lifeHacker.com"
 MESSAGE = "GET / HTTP/1.0\r\n\r\n"
 
 # code section
-x = input("please initialize client")
+x = input("please initialize client : ")
 x = x.split(" ")
 d = x[1].split("=")
 temp = d[1].split(":")
 tcpOrUdp = temp[0]
 if tcpOrUdp == "tcp":
+    #client –s=tcp:127.0.0.1:5008
     TCP_IP = str(temp[1])
     TCP_PORT = int(temp[2])
-
     TCP_Target = input("enter your target ")# 'mail.google.com'
     DNS_type =input("enter your query type") # 'A'  # CNAME
+    TCP_IP_dns= input("enter your dns server IP") # 217.215.155.155
     BUFFER_SIZE = 1024
     # MESSAGE = "Hello, World!"
 
